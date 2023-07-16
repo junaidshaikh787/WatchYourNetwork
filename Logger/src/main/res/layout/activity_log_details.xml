@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context=".LogDetailsActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="8sp"
+                app:layout_constraintEnd_toStartOf="@id/tvStatus"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/tvMethod"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="[POST]" />
+
+                <TextView
+                    android:id="@+id/tvTiming"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8sp"
+                    android:textColor="@color/swichbtngreen"
+                    android:textSize="12dp"
+                    app:layout_constraintStart_toEndOf="@id/tvMethod"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="2023-07-14 10:00" />
+
+                <TextView
+                    android:id="@+id/tvUrl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="@id/tvMethod"
+                    app:layout_constraintTop_toBottomOf="@id/tvMethod"
+                    tools:text="www.google.com" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/tvStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/textGray"
+                android:padding="16sp"
+                android:textColor="@color/swichbtngreen"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="200" />
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1sp"
+            android:background="@color/white"
+             />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/lightGray"
+            android:textSize="16sp"
+            android:layout_marginTop="8sp"
+            app:layout_constraintStart_toStartOf="@id/tvMethod"
+            app:layout_constraintTop_toBottomOf="@id/tvMethod"
+            android:text="Request Header" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1sp"
+            android:background="@color/white"
+            app:layout_constraintTop_toBottomOf="@id/clView" />
+
+        <TextView
+            android:id="@+id/tvRequestHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:layout_marginTop="8sp"
+            app:layout_constraintStart_toStartOf="@id/tvMethod"
+            app:layout_constraintTop_toBottomOf="@id/tvMethod"
+             />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1sp"
+            android:background="@color/white"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/lightGray"
+            android:textSize="16sp"
+            android:layout_marginTop="8sp"
+            android:text="Request" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1sp"
+            android:background="@color/white"
+            app:layout_constraintTop_toBottomOf="@id/clView" />
+
+        <TextView
+            android:id="@+id/tvRequest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:layout_marginTop="8sp"
+            app:layout_constraintStart_toStartOf="@id/tvMethod"
+            app:layout_constraintTop_toBottomOf="@id/tvMethod"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1sp"
+            android:background="@color/white"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/lightGray"
+            android:textSize="16sp"
+            android:layout_marginTop="8sp"
+            android:text="Response Header" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1sp"
+            android:background="@color/white"
+            app:layout_constraintTop_toBottomOf="@id/clView" />
+
+        <TextView
+            android:id="@+id/tvResponseHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:layout_marginTop="8sp"
+            app:layout_constraintStart_toStartOf="@id/tvMethod"
+            app:layout_constraintTop_toBottomOf="@id/tvMethod"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1sp"
+            android:background="@color/white"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/lightGray"
+            android:textSize="16sp"
+            android:layout_marginTop="8sp"
+            android:text="Response" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1sp"
+            android:background="@color/white"
+            app:layout_constraintTop_toBottomOf="@id/clView" />
+
+        <TextView
+            android:id="@+id/tvResponse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:layout_marginTop="8sp"
+            app:layout_constraintStart_toStartOf="@id/tvMethod"
+            app:layout_constraintTop_toBottomOf="@id/tvMethod"
+            />
+    </LinearLayout>
+
+</ScrollView>

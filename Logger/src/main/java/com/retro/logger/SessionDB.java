@@ -1,10 +1,17 @@
 package com.retro.logger;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+
+import com.retro.logger.model.LogModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SessionDB extends SQLiteOpenHelper {
 
@@ -37,6 +44,7 @@ public class SessionDB extends SQLiteOpenHelper {
     public static final String COLUMN_RESPONSE_HEADER = "ResponseHeader";
     public static final String COLUMN_RESPONSE = "Response";
     public static final String COLUMN_RESPONSE_TIME = "ResponseTime";
+    public static final String COLUMN_API_CALL_TIME = "API_CALL_TIME";
     public static final String SESSION_TABLE = "Session";
 
     public static final String CREATE_SESSION_TABLE = "CREATE TABLE IF NOT EXISTS " + SESSION_TABLE + "(" +
@@ -50,6 +58,7 @@ public class SessionDB extends SQLiteOpenHelper {
             COLUMN_RESPONSE_HEADER + TEXT_TYPE + "," +
             COLUMN_RESPONSE + TEXT_TYPE + "," +
             COLUMN_RESPONSE_TIME + TEXT_TYPE + "," +
+            COLUMN_API_CALL_TIME + " DATETIME DEFAULT (datetime('now','localtime'))," +
 
             "UNIQUE  (" + COLUMN_ID + ") ON CONFLICT REPLACE " + ");";
 
@@ -110,5 +119,35 @@ public class SessionDB extends SQLiteOpenHelper {
             Log.e("Exception ", ex.toString());
         }
         return 0;
+    }
+
+    @SuppressLint("Range")
+    public List<LogModel> getLog() {
+        SQLiteDatabase db = getDB();
+        List<LogModel> logModelList=new ArrayList<>();
+
+        Cursor cursor = db.query(SESSION_TABLE, null, null, null, null, null, null);
+        try {
+            if (cursor.getCount() > 0) {
+                cursor.moveToFirst();
+                while (cursor.moveToNext()) {
+                   LogModel logModel=new LogModel();
+                     logModel.setID(cursor.getString(cursor.getColumnIndex(COLUMN_ID)));
+                     logModel.setCALLMETHOD(cursor.getString(cursor.getColumnIndex(COLUMN_CALLMETHOD)));
+                     logModel.setSTATUS(cursor.getString(cursor.getColumnIndex(COLUMN_STAUS)));
+                     logModel.setURL(cursor.getString(cursor.getColumnIndex(COLUMN_URL)));
+                     logModel.setREQUEST_HEADER(cursor.getString(cursor.getColumnIndex(COLUMN_REQUEST_HEADER)));
+                     logModel.setREQUEST(cursor.getString(cursor.getColumnIndex(COLUMN_REQUEST)));
+                     logModel.setRESPONSE_HEADER(cursor.getString(cursor.getColumnIndex(COLUMN_RESPONSE_HEADER)));
+                     logModel.setRESPONSE(cursor.getString(cursor.getColumnIndex(COLUMN_RESPONSE)));
+                     logModel.setRESPONSE_TIME(cursor.getString(cursor.getColumnIndex(COLUMN_RESPONSE_TIME)));
+                     logModel.setAPI_CALL_TIME(cursor.getString(cursor.getColumnIndex(COLUMN_API_CALL_TIME)));
+                logModelList.add(logModel);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return  logModelList;
     }
 }

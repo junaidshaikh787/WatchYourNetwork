@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/black"
+    android:id="@+id/clLogParent"
+    >
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/clView"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:padding="8sp"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintEnd_toStartOf="@id/tvStatus">
+    <TextView
+        android:id="@+id/tvMethod"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="[POST]"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <TextView
+        android:id="@+id/tvTiming"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="2023-07-14 10:00"
+        android:textColor="@color/swichbtngreen"
+        android:textSize="12dp"
+        android:layout_marginStart="8sp"
+        app:layout_constraintStart_toEndOf="@id/tvMethod"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <TextView
+        android:id="@+id/tvUrl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="www.google.com"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/tvMethod"
+        app:layout_constraintStart_toStartOf="@id/tvMethod"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/tvStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="200"
+        android:textStyle="bold"
+        android:textColor="@color/swichbtngreen"
+        android:textSize="16sp"
+        android:padding="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/textGray"/>
+<View
+    android:layout_width="match_parent"
+    android:layout_height="1sp"
+    android:background="@color/textGray"
+    app:layout_constraintTop_toBottomOf="@id/clView"
+    />
+</androidx.constraintlayout.widget.ConstraintLayout>
