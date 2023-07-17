@@ -73,4 +73,10 @@ public class LogAdapter extends RecyclerView.Adapter<LogAdapter.LogViewHolder> {
             clLogParent = itemView.findViewById(R.id.clLogParent);
         }
     }
+
+
+    public void setData(List<LogModel> list){
+        logModelList = list;
+        notifyDataSetChanged();
+    }
 }

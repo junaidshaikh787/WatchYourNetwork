@@ -5,6 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import com.retro.logger.model.LogModel;
 
 public class LogDetailsActivity extends AppCompatActivity {
@@ -40,10 +44,17 @@ public class LogDetailsActivity extends AppCompatActivity {
         tvTiming.setText(log.getAPI_CALL_TIME());
         tvUrl.setText(log.getURL());
         tvStatus.setText(log.getSTATUS());
-        tvRequestHeader.setText(log.getREQUEST_HEADER());
-        tvRequest.setText(log.getREQUEST());
-        tvResponseHeader.setText(log.getRESPONSE_HEADER());
-        tvResponse.setText(log.getRESPONSE());
+        tvRequestHeader.setText(jsonBeautify(log.getREQUEST_HEADER()));
+        tvRequest.setText(jsonBeautify(log.getREQUEST()));
+        tvResponseHeader.setText(jsonBeautify(log.getRESPONSE_HEADER()));
+        tvResponse.setText(jsonBeautify(log.getRESPONSE()));
 
+    }
+
+    private String jsonBeautify(String jsonStr){
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        JsonParser parser = new JsonParser();
+        JsonElement jsonElement = parser.parse(jsonStr);
+        return gson.toJson(jsonElement);
     }
 }
