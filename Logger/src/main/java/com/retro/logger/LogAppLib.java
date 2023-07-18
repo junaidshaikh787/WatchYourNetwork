@@ -12,21 +12,22 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-public class LogAppLib  {
+public class LogAppLib {
 
     Context context;
 
     public LogAppLib(Context context) {
         this.context = context;
+        Thread.setDefaultUncaughtExceptionHandler(new CustomizedExceptionHandler(context));
     }
 
-    public LoggingInterceptor getInterceptor(){
+    public LoggingInterceptor getInterceptor() {
         return new LoggingInterceptor(context);
     }
 
 
-    public void initFabs(AppCompatActivity activity)
-    {
+    public void initFabs(AppCompatActivity activity) {
         initFab(activity);
+
     }
 }
