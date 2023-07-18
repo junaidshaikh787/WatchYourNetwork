@@ -40,21 +40,32 @@ public class LogDetailsActivity extends AppCompatActivity {
         tvResponseHeader = findViewById(R.id.tvResponseHeader);
         tvResponse = findViewById(R.id.tvResponse);
 
-        tvMethod.setText(log.getCALLMETHOD());
-        tvTiming.setText(log.getAPI_CALL_TIME());
+        if(Integer.parseInt(log.getSTATUS()) > 299 ){
+            tvStatus.setTextColor(getColor(R.color.swichbtnred));
+        }else{
+            tvStatus.setTextColor(getColor(R.color.swichbtngreen));
+        }
+
+        tvMethod.setText("["+log.getCALLMETHOD()+"]");
+        tvTiming.setText("["+log.getAPI_CALL_TIME()+"]");
         tvUrl.setText(log.getURL());
         tvStatus.setText(log.getSTATUS());
-        tvRequestHeader.setText(jsonBeautify(log.getREQUEST_HEADER()));
+        tvRequestHeader.setText(log.getREQUEST_HEADER());
         tvRequest.setText(jsonBeautify(log.getREQUEST()));
-        tvResponseHeader.setText(jsonBeautify(log.getRESPONSE_HEADER()));
+        tvResponseHeader.setText(log.getRESPONSE_HEADER());
         tvResponse.setText(jsonBeautify(log.getRESPONSE()));
 
     }
 
     private String jsonBeautify(String jsonStr){
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        JsonParser parser = new JsonParser();
-        JsonElement jsonElement = parser.parse(jsonStr);
-        return gson.toJson(jsonElement);
+        if(jsonStr.contains("{") && jsonStr.contains("}") && jsonStr.length() > 2){
+            Gson gson = new GsonBuilder().setPrettyPrinting().setLenient().create();
+            JsonParser parser = new JsonParser();
+            JsonElement jsonElement = parser.parse(jsonStr);
+            return gson.toJson(jsonElement);
+        }
+
+        return jsonStr;
+
     }
 }

@@ -31,7 +31,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Hello World!"
+                    android:text="@string/watch_your_network"
                     android:textColor="@color/white"
                     android:textSize="18sp"
                     android:textStyle="bold"

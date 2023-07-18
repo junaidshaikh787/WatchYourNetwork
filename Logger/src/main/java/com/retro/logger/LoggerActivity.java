@@ -12,6 +12,7 @@ import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.retro.logger.adapter.LogAdapter;
@@ -31,6 +32,8 @@ public class LoggerActivity extends AppCompatActivity {
     private Handler handler;
     private Runnable runnable;
     CharSequence charSequenceFilter;
+    ImageView delete;
+    List<LogModel> data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +42,11 @@ public class LoggerActivity extends AppCompatActivity {
 
         rvLog= findViewById(R.id.rvLog);
         search= findViewById(R.id.editSearch);
+        delete= findViewById(R.id.delete);
         sessionDB=new SessionDB(this);
         sessionDB.getDB();
-        logAdapter=new LogAdapter(sessionDB.getLog(), new LogInterface() {
+        data = sessionDB.getLog();
+        logAdapter=new LogAdapter(data, new LogInterface() {
             @Override
             public void onLogClick(LogModel log) {
                 Intent in=new Intent(LoggerActivity.this,LogDetailsActivity.class);
@@ -53,18 +58,21 @@ public class LoggerActivity extends AppCompatActivity {
         rvLog.setLayoutManager( new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         rvLog.setAdapter(logAdapter);
 
+        delete.setOnClickListener(v-> {
+            int delete = sessionDB.deleteRecord();
+            if(delete > 1){
+                data.clear();
+                data = new ArrayList<>();
+                logAdapter.setData(data);
+            }
+
+        });
+
         runnable = new Runnable() {
             @Override
             public void run() {
                 isButtonClicked = false;
-                List<LogModel> data = sessionDB.getLog();
-                List<LogModel> list = new ArrayList<>();
-                for (LogModel item : data) {
-                    if(item.getURL().contains(charSequenceFilter)) {
-                        list.add(item);
-                    }
-                }
-                logAdapter.setData(list);
+
             }
         };
 
@@ -76,16 +84,23 @@ public class LoggerActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                charSequenceFilter = charSequence;
-                if (isButtonClicked) {
+                charSequenceFilter = charSequence.toString().toLowerCase();
+                List<LogModel> data = sessionDB.getLog();
+                List<LogModel> list = new ArrayList<>();
+                for (LogModel item : data) {
+                    if(item.getURL().toLowerCase().contains(charSequenceFilter) || item.getSTATUS().toLowerCase().contains(charSequenceFilter)) {
+                        list.add(item);
+                    }
+                }
+                logAdapter.setData(list);
+                /*if (isButtonClicked) {
                     handler.removeCallbacks(runnable);
                     isButtonClicked = false;
                 } else {
                     isButtonClicked = true;
                     handler.postDelayed(runnable, 500);
-                }
+                }*/
             }
-
             @Override
             public void afterTextChanged(Editable editable) {
 
