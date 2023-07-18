@@ -5,6 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import com.retro.logger.model.LogModel;
 
 public class LogDetailsActivity extends AppCompatActivity {
@@ -36,14 +40,32 @@ public class LogDetailsActivity extends AppCompatActivity {
         tvResponseHeader = findViewById(R.id.tvResponseHeader);
         tvResponse = findViewById(R.id.tvResponse);
 
-        tvMethod.setText(log.getCALLMETHOD());
-        tvTiming.setText(log.getAPI_CALL_TIME());
+        if(Integer.parseInt(log.getSTATUS()) > 299 ){
+            tvStatus.setTextColor(getColor(R.color.swichbtnred));
+        }else{
+            tvStatus.setTextColor(getColor(R.color.swichbtngreen));
+        }
+
+        tvMethod.setText("["+log.getCALLMETHOD()+"]");
+        tvTiming.setText("["+log.getAPI_CALL_TIME()+"]");
         tvUrl.setText(log.getURL());
         tvStatus.setText(log.getSTATUS());
         tvRequestHeader.setText(log.getREQUEST_HEADER());
-        tvRequest.setText(log.getREQUEST());
+        tvRequest.setText(jsonBeautify(log.getREQUEST()));
         tvResponseHeader.setText(log.getRESPONSE_HEADER());
-        tvResponse.setText(log.getRESPONSE());
+        tvResponse.setText(jsonBeautify(log.getRESPONSE()));
+
+    }
+
+    private String jsonBeautify(String jsonStr){
+        if(jsonStr.contains("{") && jsonStr.contains("}") && jsonStr.length() > 2){
+            Gson gson = new GsonBuilder().setPrettyPrinting().setLenient().create();
+            JsonParser parser = new JsonParser();
+            JsonElement jsonElement = parser.parse(jsonStr);
+            return gson.toJson(jsonElement);
+        }
+
+        return jsonStr;
 
     }
 }

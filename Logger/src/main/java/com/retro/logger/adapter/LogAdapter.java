@@ -40,9 +40,17 @@ public class LogAdapter extends RecyclerView.Adapter<LogAdapter.LogViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull LogViewHolder holder, int position) {
 
+        if(Integer.parseInt(logModelList.get(position).getSTATUS()) > 299 ){
+            holder.tvStatus.setTextColor(context.getColor(R.color.swichbtnred));
+        }else{
+            holder.tvStatus.setTextColor(context.getColor(R.color.swichbtngreen));
+        }
+
+        holder.tvSequence.setText(String.valueOf(position+1));
         holder.tvStatus.setText(logModelList.get(position).getSTATUS());
         holder.tvMethod.setText("["+logModelList.get(position).getCALLMETHOD()+"]");
         holder.tvUrl.setText("["+logModelList.get(position).getURL()+"]");
+        holder.tvTiming.setText(logModelList.get(position).getAPI_CALL_TIME());
         holder.clLogParent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -61,6 +69,7 @@ public class LogAdapter extends RecyclerView.Adapter<LogAdapter.LogViewHolder> {
         TextView tvMethod;
         TextView tvTiming;
         TextView tvUrl;
+        TextView tvSequence;
         TextView tvStatus;
         ConstraintLayout clLogParent;
 
@@ -71,6 +80,13 @@ public class LogAdapter extends RecyclerView.Adapter<LogAdapter.LogViewHolder> {
             tvUrl = itemView.findViewById(R.id.tvUrl);
             tvStatus = itemView.findViewById(R.id.tvStatus);
             clLogParent = itemView.findViewById(R.id.clLogParent);
+            tvSequence = itemView.findViewById(R.id.tvSequence);
         }
+    }
+
+
+    public void setData(List<LogModel> list){
+        logModelList = list;
+        notifyDataSetChanged();
     }
 }

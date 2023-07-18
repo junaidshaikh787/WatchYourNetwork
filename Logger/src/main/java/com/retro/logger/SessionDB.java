@@ -150,4 +150,14 @@ public class SessionDB extends SQLiteOpenHelper {
         }
         return  logModelList;
     }
+
+    public int deleteRecord(){
+        SQLiteDatabase db = getDB();
+        int delete =  db.delete(SESSION_TABLE, null, null);
+        db.close();
+        return delete;
+    }
+
+
+
 }

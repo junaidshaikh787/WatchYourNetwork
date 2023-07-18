@@ -20,7 +20,7 @@ public class FabButton {
 
             if (root.findViewById(R.id.my_looger) == null) {
 
-                RelativeLayout fab = new RelativeLayout(activity.getApplicationContext());
+                DraggableFloatingView fab = new DraggableFloatingView(activity.getApplicationContext());
                 fab.setId(R.id.my_looger);
                 fab.setLayoutParams(new RelativeLayout.LayoutParams(
                         RelativeLayout.LayoutParams.WRAP_CONTENT,
