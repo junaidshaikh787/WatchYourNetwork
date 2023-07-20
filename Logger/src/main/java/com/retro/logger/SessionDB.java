@@ -232,6 +232,13 @@ public class SessionDB extends SQLiteOpenHelper {
         return delete;
     }
 
+    public int deleteExceptionRecord(){
+        SQLiteDatabase db = getDB();
+        int delete =  db.delete(EXCEPTION_TABLE, null, null);
+        db.close();
+        return delete;
+    }
+
 
 
 }

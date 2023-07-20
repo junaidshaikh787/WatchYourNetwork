@@ -30,7 +30,8 @@ public class CustomizedExceptionHandler implements Thread.UncaughtExceptionHandl
         e.printStackTrace(printWriter);
         String stacktrace = stringBuffSync.toString();
         printWriter.close();
-        sessionDB.InsertExceptionData(stacktrace, "EX");
+        String exceptionType = stacktrace.split(":")[0];
+        sessionDB.InsertExceptionData(stacktrace, exceptionType);
         //Used only to prevent from any code getting executed.
         // Not needed in this example
         defaultUEH.uncaughtException(t, e);

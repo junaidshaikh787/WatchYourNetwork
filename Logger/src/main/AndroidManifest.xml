@@ -4,6 +4,12 @@
 
     <application>
         <activity
+            android:name=".CrashDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CrashListActivity"
+            android:exported="false" />
+        <activity
             android:name=".LogDetailsActivity"
             android:exported="false" />
         <activity

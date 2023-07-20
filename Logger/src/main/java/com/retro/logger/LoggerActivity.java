@@ -13,6 +13,7 @@ import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.retro.logger.adapter.LogAdapter;
@@ -20,6 +21,8 @@ import com.retro.logger.model.LogModel;
 import com.retro.logger.utils.LogInterface;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class LoggerActivity extends AppCompatActivity {
@@ -34,6 +37,8 @@ public class LoggerActivity extends AppCompatActivity {
     CharSequence charSequenceFilter;
     ImageView delete;
     List<LogModel> data;
+    RelativeLayout crash;
+    TextView tvCrash;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +48,13 @@ public class LoggerActivity extends AppCompatActivity {
         rvLog= findViewById(R.id.rvLog);
         search= findViewById(R.id.editSearch);
         delete= findViewById(R.id.delete);
+        crash= findViewById(R.id.crash);
+        tvCrash= findViewById(R.id.tvCrash);
+
         sessionDB=new SessionDB(this);
         sessionDB.getDB();
         data = sessionDB.getLog();
+        Collections.reverse(data);
         logAdapter=new LogAdapter(data, new LogInterface() {
             @Override
             public void onLogClick(LogModel log) {
@@ -66,6 +75,11 @@ public class LoggerActivity extends AppCompatActivity {
                 logAdapter.setData(data);
             }
 
+        });
+
+        crash.setOnClickListener(v-> {
+            Intent in=new Intent(LoggerActivity.this, CrashListActivity.class);
+            startActivity(in);
         });
 
         runnable = new Runnable() {
@@ -92,6 +106,7 @@ public class LoggerActivity extends AppCompatActivity {
                         list.add(item);
                     }
                 }
+                Collections.reverse(list);
                 logAdapter.setData(list);
                 /*if (isButtonClicked) {
                     handler.removeCallbacks(runnable);
@@ -106,5 +121,11 @@ public class LoggerActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        tvCrash.setText(sessionDB.getException().size()+"");
     }
 }
