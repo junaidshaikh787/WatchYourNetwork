@@ -14,7 +14,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class LogAppLib {
 
-    Context context;
+    public static Context context;
 
     public LogAppLib(Context context) {
         this.context = context;

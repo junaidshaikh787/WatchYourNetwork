@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -35,7 +36,7 @@ public class LoggerActivity extends AppCompatActivity {
     private Handler handler;
     private Runnable runnable;
     CharSequence charSequenceFilter;
-    ImageView delete;
+    ImageView delete, ivSp;
     List<LogModel> data;
     RelativeLayout crash;
     TextView tvCrash;
@@ -50,6 +51,9 @@ public class LoggerActivity extends AppCompatActivity {
         delete= findViewById(R.id.delete);
         crash= findViewById(R.id.crash);
         tvCrash= findViewById(R.id.tvCrash);
+        ivSp = findViewById(R.id.sp);
+
+        ivSp.setVisibility(View.VISIBLE);
 
         sessionDB=new SessionDB(this);
         sessionDB.getDB();
@@ -75,6 +79,12 @@ public class LoggerActivity extends AppCompatActivity {
                 logAdapter.setData(data);
             }
 
+        });
+
+        ivSp.setOnClickListener(v-> {
+            Intent in=new Intent(LoggerActivity.this, SPManagerActivity.class);
+            in.putExtra("fileName", LogAppLib.context.getPackageName());
+            startActivity(in);
         });
 
         crash.setOnClickListener(v-> {
