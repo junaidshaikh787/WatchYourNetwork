@@ -13,6 +13,7 @@ import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -37,7 +38,8 @@ public class LoggerActivity extends AppCompatActivity {
     CharSequence charSequenceFilter;
     ImageView delete;
     List<LogModel> data;
-    RelativeLayout crash;
+    LinearLayout llCrashes;
+    LinearLayout llSharedPref;
     TextView tvCrash;
 
     @Override
@@ -48,7 +50,8 @@ public class LoggerActivity extends AppCompatActivity {
         rvLog= findViewById(R.id.rvLog);
         search= findViewById(R.id.editSearch);
         delete= findViewById(R.id.delete);
-        crash= findViewById(R.id.crash);
+        llCrashes= findViewById(R.id.llCrashes);
+        llSharedPref= findViewById(R.id.llSharedPref);
         tvCrash= findViewById(R.id.tvCrash);
 
         sessionDB=new SessionDB(this);
@@ -77,7 +80,7 @@ public class LoggerActivity extends AppCompatActivity {
 
         });
 
-        crash.setOnClickListener(v-> {
+        llSharedPref.setOnClickListener(v-> {
             Intent in=new Intent(LoggerActivity.this, CrashListActivity.class);
             startActivity(in);
         });
