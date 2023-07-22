@@ -34,8 +34,8 @@ public class LoggingInterceptor implements Interceptor {
 
         Response response = chain.proceed(request);
 
-        ResponseBody responseBody =  response.peekBody(2048);
-        String responseBodyString = response.peekBody(2048).string();
+        ResponseBody responseBody =  response.peekBody(100000);
+        String responseBodyString = response.peekBody(100000).string();
 
         // now we have extracted the response body but in the process
         // we have consumed the original reponse and can't read it again
