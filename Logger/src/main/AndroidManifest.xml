@@ -7,6 +7,9 @@
             android:name=".LogSharedPrefActivity"
             android:exported="false" />
         <activity
+            android:name=".SPManagerActivity"
+            android:exported="false" />
+        <activity
             android:name=".CrashDetailActivity"
             android:exported="false" />
         <activity
