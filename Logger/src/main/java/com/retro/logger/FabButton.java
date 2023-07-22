@@ -15,12 +15,12 @@ import com.retro.logger.utils.DraggableFloatingView;
 
 public class FabButton {
     public static void initFab(AppCompatActivity activity){
-        if(!(activity instanceof LoggerActivity) && !(activity instanceof LogDetailsActivity)) {
+        if(!(activity instanceof LoggerActivity) && !(activity instanceof LogDetailsActivity) && !(activity instanceof CrashListActivity) && !(activity instanceof CrashDetailActivity) ) {
             ViewGroup root = (ViewGroup) ((ViewGroup) activity.getWindow().findViewById(Window.ID_ANDROID_CONTENT)).getChildAt(0);
 
             if (root.findViewById(R.id.my_looger) == null) {
 
-                RelativeLayout fab = new RelativeLayout(activity.getApplicationContext());
+                DraggableFloatingView fab = new DraggableFloatingView(activity.getApplicationContext());
                 fab.setId(R.id.my_looger);
                 fab.setLayoutParams(new RelativeLayout.LayoutParams(
                         RelativeLayout.LayoutParams.WRAP_CONTENT,

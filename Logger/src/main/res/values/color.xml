@@ -40,4 +40,5 @@
     <color name="neomorph_shadow_color">#D9DBDE</color>
     <color name="neomorph_highlight_color">#FFFFFF</color>
     <color name="bg_blue_new">#5294e2</color>
+    <color name="grey_500">#9E9E9E</color>
 </resources>

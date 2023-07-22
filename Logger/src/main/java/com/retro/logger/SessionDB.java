@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.retro.logger.model.ExceptionModel;
 import com.retro.logger.model.LogModel;
 
 import java.util.ArrayList;
@@ -35,6 +36,7 @@ public class SessionDB extends SQLiteOpenHelper {
     private static final String ZERO = " 0";
     //endregion
 
+    //region Session
     public static final String COLUMN_ID = "Id";
     public static final String COLUMN_CALLMETHOD = "CallMethod";
     public static final String COLUMN_STAUS = "Staus";
@@ -63,6 +65,76 @@ public class SessionDB extends SQLiteOpenHelper {
             "UNIQUE  (" + COLUMN_ID + ") ON CONFLICT REPLACE " + ");";
 
     private static final String DELETE_SESSION_TABLE = "DROP TABLE IF EXISTS " + SESSION_TABLE;
+    //endregion
+
+    public static final String EXCEPTION_TABLE = "ExceptionTable";
+    public static final String COLUMN_STACKTRACE = "stacktrace";
+    public static final String COLUMN_EXCEPTION_TYPE = "exception_type";
+    public static final String COLUMN_EXCEPTION_TIME = "exception_time";
+
+    public static final String CREATE_EXCEPTION_TABLE = "CREATE TABLE IF NOT EXISTS " + EXCEPTION_TABLE + "(" +
+
+            COLUMN_ID + INT_TYPE + PRIMARY_KEY + AUTOINCREMENT + COMMA_SEP +
+            COLUMN_STACKTRACE + TEXT_TYPE + "," +
+            COLUMN_EXCEPTION_TYPE + TEXT_TYPE + "," +
+
+            COLUMN_EXCEPTION_TIME + " DATETIME DEFAULT (datetime('now','localtime'))," +
+
+            "UNIQUE  (" + COLUMN_ID + ") ON CONFLICT REPLACE " + ");";
+
+    private static final String DELETE_EXCEPTION_TABLE = "DROP TABLE IF EXISTS " + EXCEPTION_TABLE;
+
+    public int InsertExceptionData(String STACKTRACE,String EXCEPTION_TYPE) {
+        try {
+            SQLiteDatabase sql = this.getWritableDatabase();
+            ContentValues values = new ContentValues();
+
+
+            values.put(COLUMN_STACKTRACE, STACKTRACE);
+            values.put(COLUMN_EXCEPTION_TYPE, EXCEPTION_TYPE);
+
+
+            try {
+                long newRowId = sql.insert(EXCEPTION_TABLE, null, values);
+                if (newRowId > 0) {
+                    return 1;
+                }
+                //sql.close();
+            } catch (Exception ex) {
+                Log.e("Exception ", ex.toString());
+            }
+            //sql.close();
+        } catch (Exception ex) {
+            Log.e("Exception ", ex.toString());
+        }
+        return 0;
+    }
+
+
+    @SuppressLint("Range")
+    public List<ExceptionModel> getException() {
+        SQLiteDatabase db = getDB();
+        List<ExceptionModel> exModelList=new ArrayList<>();
+
+        Cursor cursor = db.query(EXCEPTION_TABLE, null, null, null, null, null, null);
+        try {
+            if (cursor.getCount() > 0) {
+                cursor.moveToFirst();
+                while (cursor.moveToNext()) {
+                    ExceptionModel exModel=new ExceptionModel();
+                    exModel.setID(cursor.getString(cursor.getColumnIndex(COLUMN_ID)));
+                    exModel.setSTACKTRACE(cursor.getString(cursor.getColumnIndex(COLUMN_STACKTRACE)));
+                    exModel.setEXCEPTION_TYPE(cursor.getString(cursor.getColumnIndex(COLUMN_EXCEPTION_TYPE)));
+                    exModel.setEXCEPTION_TIME(cursor.getString(cursor.getColumnIndex(COLUMN_EXCEPTION_TIME)));
+                    exModelList.add(exModel);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return  exModelList;
+    }
+
 
     public SessionDB(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -82,11 +154,13 @@ public class SessionDB extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(CREATE_SESSION_TABLE);
+        sqLiteDatabase.execSQL(CREATE_EXCEPTION_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         sqLiteDatabase.execSQL(DELETE_SESSION_TABLE);
+        sqLiteDatabase.execSQL(DELETE_EXCEPTION_TABLE);
         onCreate(sqLiteDatabase);
     }
 
@@ -150,4 +224,21 @@ public class SessionDB extends SQLiteOpenHelper {
         }
         return  logModelList;
     }
+
+    public int deleteRecord(){
+        SQLiteDatabase db = getDB();
+        int delete =  db.delete(SESSION_TABLE, null, null);
+        db.close();
+        return delete;
+    }
+
+    public int deleteExceptionRecord(){
+        SQLiteDatabase db = getDB();
+        int delete =  db.delete(EXCEPTION_TABLE, null, null);
+        db.close();
+        return delete;
+    }
+
+
+
 }

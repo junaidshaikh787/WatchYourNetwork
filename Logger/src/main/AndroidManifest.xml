@@ -4,6 +4,15 @@
 
     <application>
         <activity
+            android:name=".LogSharedPrefActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CrashDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CrashListActivity"
+            android:exported="false" />
+        <activity
             android:name=".LogDetailsActivity"
             android:exported="false" />
         <activity
