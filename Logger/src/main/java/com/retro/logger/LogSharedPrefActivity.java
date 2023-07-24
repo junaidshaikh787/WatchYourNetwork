@@ -20,6 +20,7 @@ public class LogSharedPrefActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_shared_pref);
         rvPref = findViewById(R.id.rvPref);
+        FetchFiles();
 
     }
 

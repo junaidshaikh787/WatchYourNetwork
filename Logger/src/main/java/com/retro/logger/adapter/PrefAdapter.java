@@ -1,6 +1,7 @@
 package com.retro.logger.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +11,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.retro.logger.LogAppLib;
+import com.retro.logger.LoggerActivity;
 import com.retro.logger.R;
+import com.retro.logger.SPManagerActivity;
 
 public class PrefAdapter extends RecyclerView.Adapter<PrefAdapter.PrefAdapterViewholder> {
     String[] list;
@@ -31,6 +35,14 @@ public class PrefAdapter extends RecyclerView.Adapter<PrefAdapter.PrefAdapterVie
     @Override
     public void onBindViewHolder(@NonNull PrefAdapterViewholder holder, int position) {
         holder.tvFileName.setText(list[position]);
+        holder.tvFileName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent in=new Intent(context, SPManagerActivity.class);
+                in.putExtra("fileName", list[position]);
+                context.startActivity(in);
+            }
+        });
     }
 
     @Override
