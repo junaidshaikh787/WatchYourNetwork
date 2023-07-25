@@ -33,7 +33,6 @@ public class CrashListActivity extends AppCompatActivity {
     EditText crashSearch;
     ImageView delete;
     List<ExceptionModel> data;
-    RelativeLayout crash;
     String charSequenceFilter;
 
 
@@ -44,10 +43,8 @@ public class CrashListActivity extends AppCompatActivity {
 
         rvCrash = findViewById(R.id.rvCrash);
         crashSearch = findViewById(R.id.editSearchCrash);
-        crash = findViewById(R.id.crash);
-        delete = findViewById(R.id.delete);
+        delete = findViewById(R.id.log_delete);
 
-        crash.setVisibility(View.INVISIBLE);
 
 
         sessionDB=new SessionDB(this);

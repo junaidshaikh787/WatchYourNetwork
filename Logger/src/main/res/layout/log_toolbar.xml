@@ -14,7 +14,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+            android:id="@+id/log_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/black"
@@ -41,7 +41,7 @@
 
 
                 <ImageView
-                    android:id="@+id/delete"
+                    android:id="@+id/log_delete"
                     android:layout_width="26dp"
                     android:layout_height="26dp"
                     android:src="@drawable/ic_delete"

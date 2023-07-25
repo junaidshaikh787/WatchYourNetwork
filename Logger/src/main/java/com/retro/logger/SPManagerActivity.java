@@ -30,7 +30,6 @@ public class SPManagerActivity extends AppCompatActivity {
     RecyclerView rvSp;
     EditText search;
     ImageView delete;
-    RelativeLayout crash;
     String charSequenceFilter;
     String profile = "";
 
@@ -41,11 +40,8 @@ public class SPManagerActivity extends AppCompatActivity {
 
         rvSp = findViewById(R.id.rvSp);
         search = findViewById(R.id.editSearchSp);
-        crash = findViewById(R.id.crash);
-        delete = findViewById(R.id.delete);
+        delete = findViewById(R.id.log_delete);
 
-
-        crash.setVisibility(View.INVISIBLE);
         delete.setVisibility(View.INVISIBLE);
 
         data = new ArrayList<>();

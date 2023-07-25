@@ -59,10 +59,8 @@ public class LogDetailsActivity extends AppCompatActivity {
 
     private String jsonBeautify(String jsonStr){
         if(jsonStr.contains("{") && jsonStr.contains("}") && jsonStr.length() > 2){
-            Gson gson = new GsonBuilder().setPrettyPrinting().setLenient().create();
-            JsonParser parser = new JsonParser();
-            JsonElement jsonElement = parser.parse(jsonStr);
-            return gson.toJson(jsonElement);
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            return gson.toJson(JsonParser.parseString(jsonStr));
         }
 
         return jsonStr;

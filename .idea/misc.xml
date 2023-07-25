@@ -7,12 +7,15 @@
         <entry key="..\:/Users/WYH-IT-806-024/AndroidStudioProjects/APILogger/Logger/src/main/res/drawable/ic_back.xml" value="0.1805" />
         <entry key="..\:/Users/WYH-IT-806-024/AndroidStudioProjects/APILogger/Logger/src/main/res/layout/activity_crash_detail.xml" value="0.18802083333333333" />
         <entry key="..\:/Users/WYH-IT-806-024/AndroidStudioProjects/APILogger/Logger/src/main/res/layout/activity_crash_list.xml" value="0.18802083333333333" />
+        <entry key="..\:/Users/WYH-IT-806-024/AndroidStudioProjects/APILogger/Logger/src/main/res/layout/activity_log_details.xml" value="0.25" />
         <entry key="..\:/Users/WYH-IT-806-024/AndroidStudioProjects/APILogger/Logger/src/main/res/layout/activity_log_shared_pref.xml" value="0.18802083333333333" />
+        <entry key="..\:/Users/WYH-IT-806-024/AndroidStudioProjects/APILogger/Logger/src/main/res/layout/activity_logger.xml" value="0.23134328358208955" />
         <entry key="..\:/Users/WYH-IT-806-024/AndroidStudioProjects/APILogger/Logger/src/main/res/layout/black_toolbar.xml" value="0.15341880341880343" />
         <entry key="..\:/Users/WYH-IT-806-024/AndroidStudioProjects/APILogger/Logger/src/main/res/layout/floater_layot.xml" value="0.1" />
         <entry key="..\:/Users/WYH-IT-806-024/AndroidStudioProjects/APILogger/Logger/src/main/res/layout/item_crash.xml" value="0.18802083333333333" />
         <entry key="..\:/Users/WYH-IT-806-024/AndroidStudioProjects/APILogger/Logger/src/main/res/layout/item_log.xml" value="0.25" />
         <entry key="..\:/Users/WYH-IT-806-024/AndroidStudioProjects/APILogger/Logger/src/main/res/layout/item_pref.xml" value="0.33" />
+        <entry key="..\:/Users/WYH-IT-806-024/AndroidStudioProjects/APILogger/Logger/src/main/res/layout/item_sp.xml" value="0.11197916666666667" />
         <entry key="..\:/Users/WYH-IT-806-024/AndroidStudioProjects/APILogger/Logger/src/main/res/layout/toolbar.xml" value="0.18802083333333333" />
       </map>
     </option>

@@ -1,6 +1,7 @@
 package com.retro.logger;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 
 import com.retro.logger.adapter.LogAdapter;
 import com.retro.logger.model.LogModel;
@@ -48,41 +50,46 @@ public class LoggerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_logger);
 
-        rvLog= findViewById(R.id.rvLog);
-        search= findViewById(R.id.editSearch);
-        delete= findViewById(R.id.delete);
-        llCrashes= findViewById(R.id.llCrashes);
-        llSharedPref= findViewById(R.id.llSharedPref);
-        tvCrash= findViewById(R.id.tvCrash);
+        rvLog = findViewById(R.id.rvLog);
+        search = findViewById(R.id.editSearch);
+        delete = findViewById(R.id.log_delete);
+        llCrashes = findViewById(R.id.llCrashes);
+        llSharedPref = findViewById(R.id.llSharedPref);
+        tvCrash = findViewById(R.id.tvCrashCount);
 
-        sessionDB=new SessionDB(this);
+        sessionDB = new SessionDB(this);
         sessionDB.getDB();
         data = sessionDB.getLog();
         Collections.reverse(data);
-        logAdapter=new LogAdapter(data, new LogInterface() {
+        logAdapter = new LogAdapter(data, new LogInterface() {
             @Override
             public void onLogClick(LogModel log) {
-                Intent in=new Intent(LoggerActivity.this,LogDetailsActivity.class);
-                in.putExtra("log",log);
+                Intent in = new Intent(LoggerActivity.this, LogDetailsActivity.class);
+                in.putExtra("log", log);
                 startActivity(in);
             }
         });
 
-        rvLog.setLayoutManager( new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        rvLog.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         rvLog.setAdapter(logAdapter);
+        if (delete != null) {
+            delete.setOnClickListener(v -> {
+                int delete = sessionDB.deleteRecord();
+                if (delete > 1) {
+                    data.clear();
+                    data = new ArrayList<>();
+                    logAdapter.setData(data);
+                }
 
-        delete.setOnClickListener(v-> {
-            int delete = sessionDB.deleteRecord();
-            if(delete > 1){
-                data.clear();
-                data = new ArrayList<>();
-                logAdapter.setData(data);
-            }
-
+            });
+        }
+        llCrashes.setOnClickListener(v -> {
+            Intent in = new Intent(LoggerActivity.this, CrashListActivity.class);
+            startActivity(in);
         });
 
-        llSharedPref.setOnClickListener(v-> {
-            Intent in=new Intent(LoggerActivity.this, CrashListActivity.class);
+        llSharedPref.setOnClickListener(v -> {
+            Intent in = new Intent(LoggerActivity.this, LogSharedPrefActivity.class);
             startActivity(in);
         });
 
@@ -106,7 +113,7 @@ public class LoggerActivity extends AppCompatActivity {
                 List<LogModel> data = sessionDB.getLog();
                 List<LogModel> list = new ArrayList<>();
                 for (LogModel item : data) {
-                    if(item.getURL().toLowerCase().contains(charSequenceFilter) || item.getSTATUS().toLowerCase().contains(charSequenceFilter)) {
+                    if (item.getURL().toLowerCase().contains(charSequenceFilter) || item.getSTATUS().toLowerCase().contains(charSequenceFilter)) {
                         list.add(item);
                     }
                 }
@@ -120,6 +127,7 @@ public class LoggerActivity extends AppCompatActivity {
                     handler.postDelayed(runnable, 500);
                 }*/
             }
+
             @Override
             public void afterTextChanged(Editable editable) {
 
@@ -130,6 +138,8 @@ public class LoggerActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        tvCrash.setText(sessionDB.getException().size()+"");
+        if (sessionDB.getException() != null) {
+            tvCrash.setText(sessionDB.getException().size() + "");
+        }
     }
 }
