@@ -28,7 +28,7 @@ public class LogDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_details);
 
-        log= (LogModel) getIntent().getExtras().get("log");
+        log = (LogModel) getIntent().getExtras().get("log");
 
 
         tvMethod = findViewById(R.id.tvMethod);
@@ -40,14 +40,14 @@ public class LogDetailsActivity extends AppCompatActivity {
         tvResponseHeader = findViewById(R.id.tvResponseHeader);
         tvResponse = findViewById(R.id.tvResponse);
 
-        if(Integer.parseInt(log.getSTATUS()) > 299 ){
+        if (Integer.parseInt(log.getSTATUS()) > 299) {
             tvStatus.setTextColor(getColor(R.color.swichbtnred));
-        }else{
+        } else {
             tvStatus.setTextColor(getColor(R.color.swichbtngreen));
         }
 
-        tvMethod.setText("["+log.getCALLMETHOD()+"]");
-        tvTiming.setText("["+log.getAPI_CALL_TIME()+"]");
+        tvMethod.setText("[" + log.getCALLMETHOD() + "]");
+        tvTiming.setText("[" + log.getAPI_CALL_TIME() + "]");
         tvUrl.setText(log.getURL());
         tvStatus.setText(log.getSTATUS());
         tvRequestHeader.setText(log.getREQUEST_HEADER());
@@ -57,11 +57,16 @@ public class LogDetailsActivity extends AppCompatActivity {
 
     }
 
-    private String jsonBeautify(String jsonStr){
-        if(jsonStr.contains("{") && jsonStr.contains("}") && jsonStr.length() > 2){
-            Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            return gson.toJson(JsonParser.parseString(jsonStr));
-        }
+    private String jsonBeautify(String jsonStr) {
+//        if (jsonStr.contains("{") && jsonStr.contains("}") && jsonStr.length() > 2) {
+//            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+//            try {
+//                JsonElement element = JsonParser.parseString(jsonStr);
+//                return gson.toJson(element);
+//            } catch (Exception ex) {
+//                return gson.toJson(jsonStr);
+//            }
+//        }
 
         return jsonStr;
 

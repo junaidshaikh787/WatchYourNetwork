@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,7 +29,7 @@ public class FabButton {
 
             if (root.findViewById(R.id.my_looger) == null) {
 
-                RelativeLayout fab = new RelativeLayout(activity.getApplicationContext());
+                FrameLayout fab = new FrameLayout(activity.getApplicationContext());
                 fab.setId(R.id.my_looger);
                 if (!(root instanceof ConstraintLayout)) {
                     RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
